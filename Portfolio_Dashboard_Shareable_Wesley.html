@@ -313,6 +313,9 @@ footer{text-align:center;padding:20px;color:var(--muted);font-size:0.72rem;borde
 .modal-field{display:flex;flex-direction:column;}
 .modal-field.full{grid-column:1/3;}
 .modal-field label{font-size:0.66rem;font-weight:600;text-transform:uppercase;letter-spacing:0.8px;color:var(--muted);margin-bottom:4px;}
+.modal-field select{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);padding:9px 11px;border-radius:7px;font:inherit;font-size:0.85rem;outline:none;cursor:pointer;}
+.modal-field select:focus{border-color:var(--gold);}
+.modal-field select option{background:#0d1f33;color:var(--text);}
 .modal-field input{background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);padding:9px 11px;border-radius:7px;font:inherit;font-size:0.85rem;outline:none;font-variant-numeric:tabular-nums;}
 .modal-field input:focus{border-color:var(--gold);background:rgba(194,106,58,0.06);}
 .modal-actions{display:flex;gap:10px;margin-top:22px;justify-content:flex-end;border-top:1px solid var(--border);padding-top:18px;}
@@ -587,6 +590,8 @@ main > *:last-child{margin-bottom:0;}
 .htw-trust-pillar-title{font-size:0.75rem;font-weight:800;color:#4a9e6a;margin-bottom:6px;display:flex;align-items:center;gap:6px;}
 .htw-trust-pillar-body{font-size:0.74rem;color:#d8cbb3;line-height:1.55;}
 .htw-edit-note{margin-top:16px;padding:10px 14px;background:rgba(140,74,92,0.08);border:1px dashed rgba(140,74,92,0.3);border-radius:8px;font-size:0.72rem;color:var(--purple);font-style:italic;}
+/* ── LEAN BUILD: sections hidden for the streamlined shareable ── */
+#briefingPanel,#income-tracker{display:none !important;}
 </style>
 </head>
 <body>
@@ -600,13 +605,10 @@ main > *:last-child{margin-bottom:0;}
     <div class="header-right">
       <div class="nav-pills" id="headerPills">
         <a class="nav-pill" href="#tab-overview" onclick="switchTab('overview');return false;">🎯 Overview</a>
-        <a class="nav-pill" href="#tab-news" onclick="switchTab('news');return false;">📰 News</a>
         <a class="nav-pill" href="#tab-properties" onclick="switchTab('properties');return false;">🏘️ Properties</a>
         <a class="nav-pill" href="#tab-performance" onclick="switchTab('performance');return false;">📊 Performance</a>
-        <a class="nav-pill" href="#tab-planning" onclick="switchTab('planning');return false;">🧭 Planning</a>
         <a class="nav-pill" href="#tab-safety" onclick="switchTab('safety');return false;">🛡️ Safety</a>
-        <a class="nav-pill" href="#tab-math" onclick="switchTab('math');return false;">🔬 The Math</a>
-        <a class="nav-pill" href="#tab-how-it-works" onclick="switchTab('how-it-works');return false;">ℹ️ How It Works</a>
+        <a class="nav-pill" href="#tab-how-it-works" onclick="switchTab('how-it-works');return false;">ℹ️ About</a>
       </div>
       <span class="badge" id="headerBadge">3 Properties · 9 Units</span>
       <button class="share-btn" onclick="exportSnapshot()" title="Download a shareable HTML file with your current numbers baked in">⇪ Share</button>
@@ -728,13 +730,10 @@ main > *:last-child{margin-bottom:0;}
 <!-- TAB NAVIGATION (v4.2) -->
 <div class="tabs" role="tablist" id="mainTabs">
   <button class="tab-btn active" data-tab-target="overview" onclick="switchTab('overview')"><span class="tab-icon">🎯</span>Overview</button>
-  <button class="tab-btn" data-tab-target="news" onclick="switchTab('news')"><span class="tab-icon">📰</span>News</button>
   <button class="tab-btn" data-tab-target="properties" onclick="switchTab('properties')"><span class="tab-icon">🏘️</span>Properties</button>
   <button class="tab-btn" data-tab-target="performance" onclick="switchTab('performance')"><span class="tab-icon">📊</span>Performance</button>
-  <button class="tab-btn" data-tab-target="planning" onclick="switchTab('planning')"><span class="tab-icon">🧭</span>Planning</button>
   <button class="tab-btn" data-tab-target="safety" onclick="switchTab('safety')"><span class="tab-icon">🛡️</span>Safety</button>
-  <button class="tab-btn" data-tab-target="math" onclick="switchTab('math')"><span class="tab-icon">🔬</span>The Math</button>
-  <button class="tab-btn" data-tab-target="how-it-works" onclick="switchTab('how-it-works')"><span class="tab-icon">ℹ️</span>How It Works</button>
+  <button class="tab-btn" data-tab-target="how-it-works" onclick="switchTab('how-it-works')"><span class="tab-icon">ℹ️</span>About</button>
 </div>
 <div class="tab-hint" id="tabHint">🏆 Financial Freedom first — the whole point of all this</div>
 <div class="first-visit-banner" id="firstVisitBanner" style="display:none;">
@@ -1345,18 +1344,18 @@ main > *:last-child{margin-bottom:0;}
 
   <!-- TAB GUIDE -->
   <div class="htw-section">
-    <h3>🗺️ The 6 tabs — where to find what</h3>
+    <h3>🗺️ The 5 tabs — where to find what</h3>
     <div class="htw-grid">
       <div class="htw-card">
         <span class="htw-card-icon">🎯</span>
         <h4>Overview</h4>
-        <p>The one-glance view: how close you are to Financial Freedom, what changed overnight (Claude's briefing), and the headline numbers — portfolio value, equity, gross rent, net cash flow.</p>
+        <p>The one-glance view: how close you are to Financial Freedom and the headline numbers — portfolio value, equity, gross rent, net cash flow.</p>
         <div class="htw-when">Use when: someone asks "how's it going?"</div>
       </div>
       <div class="htw-card">
         <span class="htw-card-icon">🏘️</span>
         <h4>Properties</h4>
-        <p>Every door, every rent, every mortgage balance. Click any number to edit it. Plus the Income Tracker — log what you actually collected each month and see your real collection rate.</p>
+        <p>Every door, every rent, every mortgage balance. Click any number to edit it.</p>
         <div class="htw-when">Use when: rent changed, you closed a unit, or you need to update real-world numbers.</div>
       </div>
       <div class="htw-card">
@@ -1366,28 +1365,16 @@ main > *:last-child{margin-bottom:0;}
         <div class="htw-when">Use when: you're benchmarking, refinancing, or having a conversation with a lender.</div>
       </div>
       <div class="htw-card">
-        <span class="htw-card-icon">🧭</span>
-        <h4>Planning</h4>
-        <p>Scenarios for what's next. The BRRR Calculator models cash-out refis on any property. The Door Simulator lets you plug in a hypothetical next purchase and see what it does to your freedom number.</p>
-        <div class="htw-when">Use when: you're underwriting a deal or pressure-testing "should I pull cash out?"</div>
-      </div>
-      <div class="htw-card">
         <span class="htw-card-icon">🛡️</span>
         <h4>Safety</h4>
         <p>Reserve & CapEx goals with tracked progress. Stress tests under five preset scenarios (rate shock, vacancy spike, maintenance crisis, market drop, full recession) — plus a builder for your own custom scenarios (rent drop + added vacancy + added maintenance + rate shock + non-payment/eviction). Debt payoff schedule with extra-payment modeling.</p>
         <div class="htw-when">Use when: you want to know your floor before the floor finds you.</div>
       </div>
       <div class="htw-card">
-        <span class="htw-card-icon">🔬</span>
-        <h4>The Math</h4>
-        <p>Every formula with plain-English explanation — Cap Rate, DSCR, Cash-on-Cash, NOI, Freedom %, amortization, stress test. Plus the four pillars of trust: inputs are yours, external data is public, self-check on every load, full audit trail.</p>
-        <div class="htw-when">Use when: someone asks "how do I know the numbers are right?"</div>
-      </div>
-      <div class="htw-card">
         <span class="htw-card-icon">ℹ️</span>
-        <h4>How It Works</h4>
-        <p>You're looking at it. Orientation, product story, and the quick-start guide to every interactive feature.</p>
-        <div class="htw-when">Use when: first visit, or sharing the dashboard with someone new.</div>
+        <h4>About</h4>
+        <p>You're looking at it. Orientation, the quick-start guide, and The Math section below — every formula with plain-English explanation, plus the four pillars of trust: inputs are yours, external data is public, self-check on every load, full audit trail.</p>
+        <div class="htw-when">Use when: first visit, or someone asks "how do I know the numbers are right?"</div>
       </div>
     </div>
   </div>
@@ -1400,8 +1387,6 @@ main > *:last-child{margin-bottom:0;}
       <li data-emoji="📅"><strong>Timeline Projection</strong> — Slide "Years Forward" from 0 to 10 to project your portfolio into the future using your rent growth and appreciation assumptions. Every number (value, rent, equity, paydown, freedom %) updates in real time.</li>
       <li data-emoji="✏️"><strong>Click-to-edit values</strong> — Hover over any property value, rent, mortgage balance, or rate. See the little pencil? Click it to edit. Changes save automatically and the whole dashboard recalculates.</li>
       <li data-emoji="🎯"><strong>Financial Freedom target</strong> — Click your Freedom Target number ($10K/mo by default) to set your personal goal. The progress bars and "properties needed" estimate update to match.</li>
-      <li data-emoji="🔥"><strong>BRRR cash-out slider</strong> — On the Planning tab, pick a property and drag the LTV slider from 60% to 80%. See the cash you could pull, your new P&amp;I, and what that cash could buy at 5/10/20% down.</li>
-      <li data-emoji="🏠"><strong>Deal Simulator</strong> — On the Planning tab, model a hypothetical next purchase. Price, rent, down %, rate, units — every field is a slider. Toggle "Include in portfolio totals" to see what adding that door does to your freedom progress.</li>
       <li data-emoji="⚠️"><strong>Stress Test</strong> — On the Safety tab, see your cash flow under five preset scenarios (rate shock, vacancy, maintenance, market drop, full recession). Each scenario is rebuilt from your live numbers. <strong>Build your own:</strong> the form at the bottom lets you create custom what-ifs — name it, plug in rent drop / added vacancy / added maintenance / rate shock / non-payment-or-eviction rate, and it shows up alongside the presets with a "Custom" tag. Saved to your browser; delete anytime.</li>
       <li data-emoji="⇪"><strong>Share button (top right)</strong> — Exports a snapshot HTML file with your current numbers baked in. Send it to a lender, partner, coach, or save it as a point-in-time archive.</li>
       <li data-emoji="💾"><strong>Persistence</strong> — Everything you type, every slider you set, every tab you pick is saved locally in your browser. Close the tab, come back tomorrow, your state is exactly where you left it.</li>
@@ -1439,7 +1424,7 @@ main > *:last-child{margin-bottom:0;}
   <div class="htw-section">
     <h3>🔬 How do I know the numbers are right?</h3>
     <div class="htw-trust-intro">
-      <strong>Fair question.</strong> The short answer: industry-standard formulas, your own inputs, documented methodology, and a self-check that runs on every page load. For the full breakdown — every formula with plain-English explanation, plus the four pillars of trust (inputs, external data, self-check, audit trail) — head to the dedicated <a href="#tab-math" onclick="switchTab('math');return false;" style="color:var(--gold);font-weight:700;text-decoration:underline;">🔬 The Math tab</a>. Short version: open a spreadsheet, plug in your numbers, apply the formulas. Your result should match the dashboard to the penny.
+      <strong>Fair question.</strong> The short answer: industry-standard formulas, your own inputs, documented methodology, and a self-check that runs on every page load. For the full breakdown — every formula with plain-English explanation, plus the four pillars of trust (inputs, external data, self-check, audit trail) — scroll down to the <a href="#math" onclick="document.getElementById('math').scrollIntoView({behavior:'smooth'});return false;" style="color:var(--gold);font-weight:700;text-decoration:underline;">🔬 The Math section</a> below. Short version: open a spreadsheet, plug in your numbers, apply the formulas. Your result should match the dashboard to the penny.
     </div>
   </div>
 
@@ -1464,7 +1449,6 @@ main > *:last-child{margin-bottom:0;}
     <p style="color:var(--muted);font-size:0.85rem;margin-bottom:16px;">Ready to dive in? Start here:</p>
     <div style="display:flex;gap:10px;justify-content:center;flex-wrap:wrap;">
       <button onclick="switchTab('overview')" style="background:linear-gradient(135deg,var(--gold),#a8542b);color:#06121f;border:none;padding:12px 24px;border-radius:10px;font-weight:800;font-size:0.82rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.8px;">🎯 Go to Overview</button>
-      <button onclick="switchTab('planning')" style="background:rgba(107,142,168,0.15);color:var(--teal);border:1px solid rgba(107,142,168,0.4);padding:12px 24px;border-radius:10px;font-weight:700;font-size:0.82rem;cursor:pointer;text-transform:uppercase;letter-spacing:0.8px;">🧭 Model a Scenario</button>
     </div>
   </div>
 </section>
@@ -1472,7 +1456,7 @@ main > *:last-child{margin-bottom:0;}
 <!-- ═══════════════════════════════════════════════════════════════════ -->
 <!-- SECTION: THE MATH (v4.8) — formulas, methodology, trust pillars       -->
 <!-- ═══════════════════════════════════════════════════════════════════ -->
-<section id="math" data-tab="math">
+<section id="math" data-tab="how-it-works">
   <div class="htw-hero">
     <div class="htw-eyebrow">Transparency · Methodology</div>
     <h2 class="htw-title">🔬 The Math</h2>
@@ -1608,21 +1592,40 @@ main > *:last-child{margin-bottom:0;}
     <div class="modal-section-title">🏷️ Property Info</div>
     <div class="modal-grid">
       <div class="modal-field full"><label>Display Name (e.g. "Maple St Duplex")</label><input type="text" id="ef_label"></div>
-      <div class="modal-field"><label>Address</label><input type="text" id="ef_address"></div>
-      <div class="modal-field"><label>City, State, ZIP</label><input type="text" id="ef_city"></div>
+      <div class="modal-field"><label>Address</label><input type="text" id="ef_address" oninput="updateCompLinks()"></div>
+      <div class="modal-field"><label>City, State, ZIP</label><input type="text" id="ef_city" oninput="updateCompLinks()"></div>
+      <div class="modal-field full" id="ef_compLinks" style="display:none;flex-direction:row;gap:8px;align-items:center;font-size:0.7rem;">
+        <span style="color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:0.6px;font-size:0.6rem;">🔍 Look up value &amp; rent:</span>
+        <a id="ef_linkZillow" href="#" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;">Zillow</a>
+        <a id="ef_linkRedfin" href="#" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;">Redfin</a>
+        <a id="ef_linkRentometer" href="#" target="_blank" rel="noopener" style="color:var(--gold);font-weight:700;">Rentometer</a>
+      </div>
       <div class="modal-field"><label>County</label><input type="text" id="ef_county"></div>
-      <div class="modal-field"><label>Loan Info (e.g. "Conv 5% · 6.85%")</label><input type="text" id="ef_loanInfo"></div>
+      <div class="modal-field"><label>Loan Type</label><select id="ef_loanType" onchange="toggleLoanCustom()">
+        <option>Conventional</option><option>FHA</option><option>VA</option><option>USDA</option><option>DSCR</option><option>Seller Finance</option><option>Hard Money</option><option>HELOC</option><option>Cash — no loan</option><option>Other…</option>
+      </select></div>
+      <div class="modal-field" id="ef_loanCustomWrap" style="display:none;"><label>Custom Loan Info</label><input type="text" id="ef_loanInfoCustom" placeholder='e.g. "Conv 5% · 6.85%"'></div>
     </div>
     <div class="modal-section-title">📍 Valuation</div>
     <div class="modal-grid">
-      <div class="modal-field"><label>Current Value ($)</label><input type="number" id="ef_value"></div>
+      <div class="modal-field"><label>Current Value ($)</label><input type="number" id="ef_value" oninput="updateCashInPreview()"></div>
       <div class="modal-field"><label>Loan Balance ($) <span id="ef_balance_status" style="font-size:0.6rem;color:var(--teal);font-weight:700;margin-left:4px;"></span></label><input type="number" id="ef_balance"></div>
-      <div class="modal-field"><label>Purchase Price ($)</label><input type="number" id="ef_purchase"></div>
-      <div class="modal-field"><label>Cash Invested ($)</label><input type="number" id="ef_cashIn"></div>
+      <div class="modal-field"><label>Purchase Price ($)</label><input type="number" id="ef_purchase" oninput="updateCashInPreview()"></div>
+      <div class="modal-field"><label>Down Payment</label>
+        <div style="display:flex;gap:6px;">
+          <select id="ef_cashInMode" onchange="updateCashInPreview()" title="Enter as dollars or as a percent of purchase price" style="flex:0 0 auto;background:rgba(255,255,255,0.05);border:1px solid var(--border);color:var(--text);padding:9px 8px;border-radius:7px;font:inherit;font-size:0.8rem;cursor:pointer;">
+            <option value="$">$</option><option value="%">% of price</option>
+          </select>
+          <input type="number" id="ef_cashIn" oninput="updateCashInPreview()" style="flex:1;min-width:0;">
+        </div>
+      </div>
+      <div class="modal-field"><label>Closing Costs ($)</label><input type="number" id="ef_closing" oninput="updateCashInPreview()"></div>
+      <div class="modal-field"><label>Rehab ($)</label><input type="number" id="ef_rehab" oninput="updateCashInPreview()"></div>
+      <div class="modal-field full" id="ef_cashInPreview" style="font-size:0.68rem;color:var(--teal);font-weight:700;min-height:14px;"></div>
     </div>
     <div class="modal-field full" style="margin:-4px 0 12px 0;background:rgba(107,142,168,0.06);border:1px solid rgba(107,142,168,0.2);border-radius:8px;padding:10px 14px;">
       <label style="display:flex;align-items:center;gap:8px;cursor:pointer;font-size:0.78rem;color:var(--text);">
-        <input type="checkbox" id="ef_balanceLocked" style="width:auto;margin:0;">
+        <input type="checkbox" id="ef_balanceLocked" style="width:auto;margin:0;" onchange="modalLoanAutoFill()">
         🔒 Lock balance — keep this number manual (don't auto-derive from purchase date)
       </label>
       <div style="font-size:0.66rem;color:var(--muted);margin-top:4px;line-height:1.5;">When unlocked (default), balance auto-recalcs from purchase date + amortization on every page load. Lock it if you've made a lump-sum payment, recast, or otherwise diverged from schedule.</div>
@@ -1635,14 +1638,14 @@ main > *:last-child{margin-bottom:0;}
     </div>
     <div class="modal-section-title">🏦 Mortgage</div>
     <div class="modal-grid">
-      <div class="modal-field"><label>Interest Rate (decimal — 0.0685 = 6.85%)</label><input type="number" id="ef_rate" step="0.0001"></div>
-      <div class="modal-field"><label>Principal &amp; Interest / mo ($)</label><input type="number" id="ef_pi"></div>
+      <div class="modal-field"><label>Interest Rate (%) — e.g. 6.85</label><input type="number" id="ef_rate" step="0.01" min="0" max="25" placeholder="6.85" oninput="modalLoanAutoFill()"></div>
+      <div class="modal-field"><label>Principal &amp; Interest / mo ($) — auto from price, down payment &amp; rate</label><input type="number" id="ef_pi"></div>
       <div class="modal-field"><label>PMI / mo ($)</label><input type="number" id="ef_pmi"></div>
       <div class="modal-field"><label>Taxes + Insurance / mo ($)</label><input type="number" id="ef_ti"></div>
-      <div class="modal-field"><label>Purchase Date</label><input type="date" id="ef_purchaseDate"></div>
-      <div class="modal-field"><label>Loan Term (years)</label><input type="number" id="ef_loanTerm" min="1" max="40"></div>
-      <div class="modal-field full"><label>💥 Extra Principal / mo ($) — set to 0 for none</label><input type="number" id="ef_extraPrincipal" min="0" step="25"></div>
-      <div class="modal-field full"><label>Current Principal Paydown / mo ($) — auto-calc on save</label><input type="number" id="ef_paydown"></div>
+      <div class="modal-field"><label>Purchase Date</label><input type="date" id="ef_purchaseDate" onchange="modalLoanAutoFill()"></div>
+      <div class="modal-field"><label>Loan Term (years)</label><input type="number" id="ef_loanTerm" min="1" max="40" oninput="modalLoanAutoFill()"></div>
+      <div class="modal-field full"><label>💥 Extra Principal / mo ($) — set to 0 for none</label><input type="number" id="ef_extraPrincipal" min="0" step="25" oninput="modalLoanAutoFill()"></div>
+      <div class="modal-field full"><label>Current Principal Paydown / mo ($) — auto</label><input type="number" id="ef_paydown" readonly style="opacity:0.6;cursor:not-allowed;"></div>
     </div>
     <div class="modal-section-title">⚡ Operating Expenses</div>
     <div class="modal-grid">
@@ -1650,6 +1653,7 @@ main > *:last-child{margin-bottom:0;}
       <div class="modal-field"><label>Water + Sewer / mo</label><input type="number" id="ef_water"></div>
       <div class="modal-field"><label>Lawn / Snow / mo</label><input type="number" id="ef_lawn"></div>
       <div class="modal-field"><label>Tax Prep / mo</label><input type="number" id="ef_taxprep"></div>
+      <div class="modal-field"><label>Other / mo ($) — HOA, pest, misc</label><input type="number" id="ef_other"></div>
     </div>
     <div class="modal-actions" style="justify-content:space-between;">
       <button class="modal-btn" onclick="removeProperty(editingPropIdx)" style="background:rgba(231,76,60,0.12);border-color:rgba(231,76,60,0.3);color:var(--red);">🗑 Remove Property</button>
@@ -1668,13 +1672,13 @@ main > *:last-child{margin-bottom:0;}
     <strong style="color:var(--gold);">Financial Disclaimer:</strong> This dashboard is a personal modeling tool. All values are estimates based on user inputs and standard formulas. Cash-out refi estimates assume current market rates ~7.5%. Property values, rents, and projections are not appraisals. Nothing here constitutes financial, tax, legal, or investment advice. Always verify numbers with your lender, CPA, attorney, and licensed appraiser before making any real estate decision.
   </div>
   <div class="footer-copyright">
-    <strong>© 2026 Delroy &amp; Shawntae Samuels. All rights reserved.</strong> The design, layout, concept, calculations, copy, and user experience of this dashboard — including the Financial Freedom progress meter, the five-scenario stress test framework, the custom scenario builder, the tab architecture, and the "Claude's Morning Briefing" feature — are the original intellectual property of the authors. Unauthorized reproduction, redistribution, rehosting, or derivative use for commercial purposes is prohibited. Personal, non-commercial use is welcome. For licensing, white-label, or partnership inquiries, contact the authors directly.
+    <strong>© 2026 Delroy &amp; Shawntae Samuels. All rights reserved.</strong> The design, layout, concept, calculations, copy, and user experience of this dashboard — including the Financial Freedom progress meter, the five-scenario stress test framework, the custom scenario builder, the tab architecture, and the "Claude's Morning Briefing" feature — are the original intellectual property of the authors. Unauthorized reproduction, redistribution, rehosting, or derivative use for commercial purposes is prohibited. Personal, non-commercial use is welcome. For licensing, white-label, or partnership inquiries: <a href="mailto:s2hresidence@gmail.com?subject=Portfolio%20Dashboard" style="color:var(--gold);font-weight:700;">s2hresidence@gmail.com</a>.<br><span style="display:inline-block;margin-top:6px;">📨 Found a bug or have an idea? <a href="mailto:s2hresidence@gmail.com?subject=Dashboard%20Feedback" style="color:var(--gold);font-weight:700;">Send feedback</a> — we read everything.</span>
   </div>
 </footer>
 
 <script>
 // ── VERSION ───────────────────────────────────────────────────────────────
-const DASHBOARD_VERSION = 'SHAREABLE · 2026-06-12c · Self-contained blank template (data inlined)';
+const DASHBOARD_VERSION = 'SHAREABLE-LEAN · 2026-06-12o · Streamlined 5-tab template (data inlined)';
 document.getElementById('dateStamp').textContent = new Date().toLocaleDateString('en-US',{month:'long',day:'numeric',year:'numeric'});
 
 // ── EDITABLE PORTFOLIO NAME ────────────────────────────────────────────────
@@ -1696,12 +1700,12 @@ function editPortfolioName() {
 const PROP_COLORS = ['#c26a3a','#6b8ea8','#8c4a5c','#c85544','#5b8fb8','#4a9e6a','#b8612e','#8c6a9a','#5fa590','#b85572'];
 const DEFAULT_PROPS = [
   { label:'Your Property 1', address:'123 Example St', city:'City, ST 00000', county:'', loanInfo:'Loan type · rate · date', note:'',
-    rent:0, piti:0, pi:0, pmi:0, ti:0, utilities:0, water:0, lawn:0, taxprep:0,
+    rent:0, piti:0, pi:0, pmi:0, ti:0, utilities:0, water:0, lawn:0, taxprep:0, other:0,
     value:0, balance:0, purchase:0, cashIn:0, rate:0.07, downPct:0.25,
     paydown:0, purchaseDate:'', loanTerm:30, extraPrincipal:0, balanceLocked:false,
     units:[{label:'Unit 1',rent:0},{label:'Unit 2',rent:0}], color:'#c26a3a' },
   { label:'Your Property 2', address:'456 Example Ave', city:'City, ST 00000', county:'', loanInfo:'Loan type · rate · date', note:'',
-    rent:0, piti:0, pi:0, pmi:0, ti:0, utilities:0, water:0, lawn:0, taxprep:0,
+    rent:0, piti:0, pi:0, pmi:0, ti:0, utilities:0, water:0, lawn:0, taxprep:0, other:0,
     value:0, balance:0, purchase:0, cashIn:0, rate:0.07, downPct:0.25,
     paydown:0, purchaseDate:'', loanTerm:30, extraPrincipal:0, balanceLocked:false,
     units:[{label:'Unit 1',rent:0},{label:'Unit 2',rent:0}], color:'#6b8ea8' }
@@ -1752,10 +1756,12 @@ function calcCurrentBalance(origLoan, annualRate, termYears, monthsElapsed, extr
 // On load (and after every edit), auto-set PI + PITI + paydown from loan params
 // Also derive current balance if purchaseDate set and balance not locked.
 function syncLoanMath(p) {
-  // Prefer downPct (exact), fall back to purchase - cashIn (approximate)
+  // Prefer downPct (exact), then explicit down payment, then legacy purchase - cashIn
   const origLoan = (p.downPct != null && p.purchase > 0)
     ? p.purchase * (1 - p.downPct)
-    : (p.purchase || 0) - (p.cashIn || 0);
+    : (p.down != null)
+      ? (p.purchase || 0) - p.down
+      : (p.purchase || 0) - (p.cashIn || 0);
   const correctPI = computePI(origLoan, p.rate, p.loanTerm || 30);
   if (correctPI > 0) {
     p.pi = correctPI;
@@ -1827,6 +1833,10 @@ function resetProps() {
     localStorage.removeItem('reFreedomGoal');
     localStorage.removeItem('reHistory');
     localStorage.removeItem('reIncomeLog');
+    localStorage.removeItem('rePortfolioName');
+    localStorage.removeItem('reCustomScenarios');
+    localStorage.removeItem('reStartBannerHidden');
+    localStorage.removeItem('reActiveTab');
     location.reload();
   }
 }
@@ -1914,15 +1924,131 @@ function renderMetricsRows() {
 }
 
 // ── ADD / REMOVE PROPERTY ──────────────────────────────────────────────────
+// ── COMP LOOKUP LINKS ──────────────────────────────────────────────────────
+// Once an address is typed, offer one-click searches on the big valuation
+// sites. (Zillow killed its public API — a link the investor clicks is the
+// simplest thing that always works.)
+function updateCompLinks() {
+  const wrap = document.getElementById('ef_compLinks');
+  if (!wrap) return;
+  const addr = (document.getElementById('ef_address').value || '').trim();
+  const city = (document.getElementById('ef_city').value || '').trim();
+  if (addr.length < 4) { wrap.style.display = 'none'; return; }
+  const full = encodeURIComponent(addr + (city ? ', ' + city : ''));
+  document.getElementById('ef_linkZillow').href = 'https://www.zillow.com/homes/' + full + '_rb/';
+  // Redfin has no URL-based search — route through Google, which lands on the property page
+  document.getElementById('ef_linkRedfin').href = 'https://www.google.com/search?q=site:redfin.com+' + full + '&btnI=1';
+  document.getElementById('ef_linkRentometer').href = 'https://www.rentometer.com/?address=' + full;
+  wrap.style.display = 'flex';
+}
+
+// ── DOWN PAYMENT $/% + CLOSING + REHAB ─────────────────────────────────────
+// Down payment can be entered as dollars or % of purchase price (falls back
+// to current value). Cash Invested = down + closing + rehab, always stored
+// in dollars and shown as a live total under the fields.
+function cashInBase() {
+  return (+document.getElementById('ef_purchase').value || 0) || (+document.getElementById('ef_value').value || 0);
+}
+function downDollars() {
+  const v = +document.getElementById('ef_cashIn').value || 0;
+  if (document.getElementById('ef_cashInMode').value === '%') return Math.round(v / 100 * cashInBase());
+  return v;
+}
+function totalCashInvested() {
+  return downDollars() + (+document.getElementById('ef_closing').value || 0) + (+document.getElementById('ef_rehab').value || 0);
+}
+function updateCashInPreview() {
+  const out = document.getElementById('ef_cashInPreview');
+  if (!out) return;
+  const down = downDollars();
+  const total = totalCashInvested();
+  if (total > 0) {
+    let txt = '💰 Cash Invested = $' + total.toLocaleString();
+    if (document.getElementById('ef_cashInMode').value === '%') {
+      const base = cashInBase();
+      txt += base > 0 ? ' (down $' + down.toLocaleString() + ' of $' + base.toLocaleString() + ' price)' : ' — enter purchase price first';
+    }
+    out.textContent = txt;
+  } else {
+    out.textContent = '';
+  }
+  modalLoanAutoFill();
+}
+
+// ── LIVE LOAN MATH IN THE EDIT MODAL ───────────────────────────────────────
+// As soon as purchase price + down payment + rate (+ term/date) are entered,
+// fill in P&I, balance, and paydown right in the form — same math as save.
+function modalLoanAutoFill() {
+  const g = id => document.getElementById(id);
+  if (!g('ef_purchase')) return;
+  const purchase = +g('ef_purchase').value || 0;
+  let rate = +g('ef_rate').value || 0;
+  if (rate > 1) rate = rate / 100;
+  const term = +g('ef_loanTerm').value || 30;
+  const mode = g('ef_cashInMode').value;
+  const cashRaw = +g('ef_cashIn').value || 0;
+  const origLoan = (mode === '%' && purchase > 0)
+    ? purchase * (1 - cashRaw / 100)
+    : purchase - cashRaw;
+  if (purchase <= 0 || rate <= 0 || origLoan <= 0) return;
+  const pi = computePI(origLoan, rate, term);
+  if (pi > 0) g('ef_pi').value = pi;
+  let balance = +g('ef_balance').value || 0;
+  const dateStr = g('ef_purchaseDate').value;
+  const locked = g('ef_balanceLocked').checked;
+  if (dateStr && !locked) {
+    const pd = new Date(dateStr);
+    if (!isNaN(pd)) {
+      const now = new Date();
+      const monthsElapsed = Math.max(0, (now.getFullYear()-pd.getFullYear())*12 + (now.getMonth()-pd.getMonth()));
+      const derived = calcCurrentBalance(origLoan, rate, term, monthsElapsed, +g('ef_extraPrincipal').value || 0);
+      if (derived > 0) { balance = derived; g('ef_balance').value = derived; }
+      const st = g('ef_balance_status');
+      if (st) { st.textContent = '· auto-derived'; st.style.color = 'var(--teal)'; }
+    }
+  }
+  if (balance > 0 && pi > 0) g('ef_paydown').value = Math.max(0, Math.round(pi - balance * (rate / 12)));
+}
+
+// ── LOAN TYPE DROPDOWN (Shareable) ─────────────────────────────────────────
+const LOAN_TYPES = ['Conventional','FHA','VA','USDA','DSCR','Seller Finance','Hard Money','HELOC','Cash — no loan'];
+function toggleLoanCustom() {
+  const sel = document.getElementById('ef_loanType');
+  document.getElementById('ef_loanCustomWrap').style.display = (sel.value === 'Other…') ? '' : 'none';
+}
+function setLoanTypeFromInfo(info) {
+  if (info === 'Loan type · rate · date') info = '';  // placeholder = empty
+  const sel = document.getElementById('ef_loanType');
+  const custom = document.getElementById('ef_loanInfoCustom');
+  const first = (info.split('·')[0] || '').trim().toLowerCase();
+  let match = '';
+  if (first) {
+    if (first.startsWith('conv')) match = 'Conventional';
+    else match = LOAN_TYPES.find(t => first.startsWith(t.split(' ')[0].toLowerCase())) || '';
+  }
+  if (!info) { sel.value = 'Conventional'; custom.value = ''; }
+  else if (match) { sel.value = match; custom.value = ''; }
+  else { sel.value = 'Other…'; custom.value = info; }
+  toggleLoanCustom();
+}
+function composeLoanInfo() {
+  const sel = document.getElementById('ef_loanType');
+  if (sel.value === 'Other…') return (document.getElementById('ef_loanInfoCustom').value || '').trim();
+  if (sel.value === 'Cash — no loan') return 'Cash';
+  let rate = +(document.getElementById('ef_rate').value || 0);
+  if (rate > 0 && rate <= 1) rate = rate * 100;  // tolerate decimal entry
+  return sel.value + (rate > 0 ? ' · ' + rate.toFixed(2) + '%' : '');
+}
+
 function addNewProperty() {
   const idx = props.length;
   const color = PROP_COLORS[idx % PROP_COLORS.length];
   props.push({
     label: 'New Property', address: '', city: '', county: '', loanInfo: '', note: '',
-    rent: 0, piti: 0, pi: 0, pmi: 0, ti: 0, utilities: 0, water: 0, lawn: 0, taxprep: 0,
-    value: 0, balance: 0, purchase: 0, cashIn: 0, rate: 0.07,
+    rent: 0, piti: 0, pi: 0, pmi: 0, ti: 0, utilities: 0, water: 0, lawn: 0, taxprep: 0, other: 0,
+    value: 0, balance: 0, purchase: 0, cashIn: 0, down: 0, closing: 0, rehab: 0, rate: 0.07,
     paydown: 0, purchaseDate: '', loanTerm: 30, extraPrincipal: 0,
-    units: [], color: color
+    units: [{label:'Unit 1', rent:0}], color: color
   });
   LABELS = getLabels();
   saveProps();
@@ -1975,6 +2101,8 @@ function rebuildDashboard() {
   renderIncomeTracker();
   renderHistory();
   updateStartBanner();
+  // Recompute weighted-avg rate + premium — balances may have changed (blank-template fix)
+  if (typeof loadLiveRate === 'function') loadLiveRate();
 }
 
 function getSliders() {
@@ -1988,8 +2116,8 @@ function getSliders() {
 
 function calc(p, s) {
   const varExp = p.rent * (s.vac + s.mnt + s.cpx + s.res);
-  const netCF = p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - varExp;
-  const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.rent*(s.mnt+s.cpx+s.res));
+  const netCF = p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - varExp;
+  const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - (p.rent*(s.mnt+s.cpx+s.res));
   const noiAnn = noi * 12;
   const capRate = p.value > 0 ? noiAnn / p.value : 0;
   const debtService = (p.pi + p.pmi) * 12;
@@ -2183,8 +2311,8 @@ function updateAll() {
   // Per property calculations (use projected data)
   const results = pProj.map(p => {
     const varExp = p.rent * (s.vac + s.mnt + s.cpx + s.res);
-    const netCF = p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - varExp;
-    const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.rent*(s.mnt+s.cpx+s.res));
+    const netCF = p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - varExp;
+    const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - (p.rent*(s.mnt+s.cpx+s.res));
     const noiBetter = noi;
     const noiAnn = noiBetter * 12;
     const capRate = p.value > 0 ? noiAnn / p.value : 0;
@@ -2289,7 +2417,7 @@ function updateAll() {
   const baseNetCF = pProj.reduce((a,p,i) => {
     const bp = props[i];
     const ve = bp.rent * (s.vac+s.mnt+s.cpx+s.res);
-    return a + (bp.rent - bp.piti - bp.utilities - bp.water - bp.lawn - bp.taxprep - ve);
+    return a + (bp.rent - bp.piti - bp.utilities - bp.water - bp.lawn - bp.taxprep - (bp.other || 0) - ve);
   }, 0);
   const cumCF = years === 0 ? 0
     : Math.abs(rentG) < 1e-6 ? baseNetCF * years * 12
@@ -2324,7 +2452,7 @@ function updateAll() {
     if (!noiEl) return;
     noiEl.innerHTML = '<span class="'+colorClass(r.noiAnn,20000,35000)+'">' + '$' + Math.round(r.noiAnn).toLocaleString() + '</span>';
     document.getElementById('cap'+n).innerHTML = '<span class="'+colorClass(r.capRate,0.05,0.07)+'">' + (r.capRate*100).toFixed(1) + '%</span>';
-    const baseNoiMo = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.rent*(s.mnt+s.cpx+s.res));
+    const baseNoiMo = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - (p.rent*(s.mnt+s.cpx+s.res));
     const baseNoiAnn = baseNoiMo * 12;
     const yoc = p.purchase > 0 ? baseNoiAnn / p.purchase : 0;
     const yocDelta = yoc - r.capRate;
@@ -2347,7 +2475,7 @@ function updateAll() {
   document.getElementById('capTotal').innerHTML = '<strong class="'+colorClass(portCapRate,0.05,0.07)+'">' + (portCapRate*100).toFixed(1) + '%</strong>';
   // Portfolio Yield on Cost: base (non-projected) NOI ÷ total purchase price
   const baseNoiTotal = props.reduce((a,p)=>{
-    const noiMo = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.rent*(s.mnt+s.cpx+s.res));
+    const noiMo = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - (p.rent*(s.mnt+s.cpx+s.res));
     return a + noiMo*12;
   }, 0);
   const portYoC = totalPurchase > 0 ? baseNoiTotal / totalPurchase : 0;
@@ -2383,7 +2511,7 @@ function updateAll() {
   });
 
   // ── Freedom gross CF stat (live) ──
-  const grossCfNow = pProj.reduce((a,p)=>a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep), 0);
+  const grossCfNow = pProj.reduce((a,p)=>a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0)), 0);
   const grossPctNow = freedomGoal > 0 ? Math.max(0, Math.min(100, grossCfNow / freedomGoal * 100)) : 0;
   const fsGrossEl = document.getElementById('fsGross');
   const fsGrossSubEl = document.getElementById('fsGrossSub');
@@ -2399,7 +2527,7 @@ function updateAll() {
   const goalK = goalAmt >= 1000 ? '$' + (goalAmt/1000).toFixed(goalAmt%1000===0?0:1) + 'K' : goalStr;
   document.getElementById('fsGapLabel').textContent = 'Gap to ' + goalK + ' Goal';
   // Gross (after-PITI) cash flow before variable expenses
-  const totalGrossCF = pProj.reduce((a,p)=>a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep), 0);
+  const totalGrossCF = pProj.reduce((a,p)=>a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0)), 0);
   const grossPct = Math.max(0, Math.min(100, totalGrossCF / goalAmt * 100));
   document.getElementById('freedomGrossBar').style.width = grossPct + '%';
   document.getElementById('freedomGrossLabel').textContent = (totalGrossCF>=0?'':'-') + '$' + Math.round(Math.abs(totalGrossCF)).toLocaleString() + ' / ' + goalStr;
@@ -2515,7 +2643,7 @@ function renderSession1(results, pProj, totalNetCF, s) {
 
   // Waterfall
   const totalPITI = pProj.reduce((a,p)=>a+p.piti,0);
-  const totalUtil = pProj.reduce((a,p)=>a+p.utilities+p.water+p.lawn+p.taxprep,0);
+  const totalUtil = pProj.reduce((a,p)=>a+p.utilities+p.water+p.lawn+p.taxprep+(p.other||0),0);
   const totalVar = pProj.reduce((a,p)=>a + p.rent*(s.vac+s.mnt+s.cpx+s.res), 0);
   if (waterfallChart) {
     waterfallChart.data.datasets[0].data = [
@@ -2674,16 +2802,26 @@ let editingPropIdx = -1;
 function openEditModal(idx) {
   editingPropIdx = idx;
   const p = props[idx];
-  const numFields = ['value','balance','purchase','cashIn','rate','pi','pmi','ti','utilities','water','lawn','taxprep','paydown','loanTerm','extraPrincipal'];
+  const numFields = ['value','balance','purchase','closing','rehab','rate','pi','pmi','ti','utilities','water','lawn','taxprep','other','paydown','loanTerm','extraPrincipal'];
   numFields.forEach(f => {
     const el = document.getElementById('ef_'+f);
-    if (el) el.value = p[f] || 0;
+    if (!el) return;
+    // Rate is stored as a decimal (0.0685) but displayed as a percent (6.85)
+    el.value = (f === 'rate') ? +((p.rate || 0) * 100).toFixed(3) : (p[f] || 0);
   });
-  const textFields = ['label','address','city','county','loanInfo'];
+  // Down payment: exact if stored, else back out of legacy cashIn total
+  document.getElementById('ef_cashIn').value = (p.down != null)
+    ? p.down
+    : Math.max(0, (p.cashIn || 0) - (p.closing || 0) - (p.rehab || 0));
+  const textFields = ['label','address','city','county'];
   textFields.forEach(f => {
     const el = document.getElementById('ef_'+f);
     if (el) el.value = p[f] || '';
   });
+  setLoanTypeFromInfo(p.loanInfo || '');
+  document.getElementById('ef_cashInMode').value = '$';
+  updateCompLinks();
+  updateCashInPreview();
   document.getElementById('ef_purchaseDate').value = p.purchaseDate || '';
   document.getElementById('ef_balanceLocked').checked = !!p.balanceLocked;
   // Show whether balance is currently auto-derived or manually entered
@@ -2740,19 +2878,30 @@ function removeUnit(idx) {
 function saveEditModal() {
   if (editingPropIdx < 0) return;
   const p = props[editingPropIdx];
-  const numFields = ['value','balance','purchase','cashIn','rate','pi','pmi','ti','utilities','water','lawn','taxprep','paydown','loanTerm','extraPrincipal'];
+  const numFields = ['value','balance','purchase','closing','rehab','rate','pi','pmi','ti','utilities','water','lawn','taxprep','other','paydown','loanTerm','extraPrincipal'];
   numFields.forEach(f => {
     const el = document.getElementById('ef_'+f);
     if (el) {
-      const v = +el.value;
-      if (!isNaN(v)) p[f] = v;
+      let v = +el.value;
+      if (!isNaN(v)) {
+        if (f === 'rate') v = v > 1 ? v / 100 : v;  // accept 6.85 or 0.0685
+        p[f] = v;
+      }
     }
   });
-  const textFields = ['label','address','city','county','loanInfo'];
+  // Down payment + total cash invested (down + closing + rehab)
+  p.down = downDollars();
+  p.cashIn = totalCashInvested();
+  const textFields = ['label','address','city','county'];
   textFields.forEach(f => {
     const el = document.getElementById('ef_'+f);
     if (el) p[f] = (el.value || '').trim();
   });
+  p.loanInfo = composeLoanInfo();
+  // % mode = exact down-payment fraction for loan math; $ mode falls back to purchase − cashIn
+  p.downPct = (document.getElementById('ef_cashInMode').value === '%')
+    ? (+document.getElementById('ef_cashIn').value || 0) / 100
+    : null;
   // Update LABELS after label change
   LABELS = getLabels();
   // Save unit rents and recompute total
@@ -2821,7 +2970,7 @@ function renderStressTest(s) {
       const vac = Math.max(0, s.vac + vacAdd);
       const mnt = Math.max(0, s.mnt + mntAdd);
       const varExp = grossRent * (vac + mnt + s.cpx + s.res);
-      const cf = collectedRent - newPITI - p.utilities - p.water - p.lawn - p.taxprep - varExp;
+      const cf = collectedRent - newPITI - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - varExp;
       totalCF += cf;
       totalEq += (p.value * valMult) - p.balance;
     });
@@ -3087,7 +3236,7 @@ function updateBRRR() {
   const s = getSliders();
   const varExp = prop.rent * (s.vac + s.mnt + s.cpx + s.res);
   const newPITI = newPI + prop.ti; // new P&I + existing T&I (no PMI on refi if <80% LTV)
-  const newCF = prop.rent - newPITI - prop.utilities - prop.water - prop.lawn - prop.taxprep - varExp;
+  const newCF = prop.rent - newPITI - prop.utilities - prop.water - prop.lawn - prop.taxprep - (prop.other || 0) - varExp;
   const newCFEl = document.getElementById('brrrNewCF');
   newCFEl.textContent = (newCF>=0?'+':'') + '$' + Math.round(Math.abs(newCF)).toLocaleString();
   newCFEl.className = 'rv ' + (newCF >= 0 ? 'pos' : 'neg');
@@ -3144,16 +3293,13 @@ function deleteHistorySnapshot() {}
 // Tabs: overview | properties | performance | planning | safety
 // Each section/details element in <main> has a data-tab attribute. Only
 // elements matching the active tab get the 'tab-active' class and render.
-const TAB_ORDER = ['overview','news','properties','performance','planning','safety','math','how-it-works'];
+const TAB_ORDER = ['overview','properties','performance','safety','how-it-works'];
 const TAB_HINTS = {
   overview:        '🏆 Financial Freedom first — the whole point of all this',
-  news:            '📰 Live mortgage-rate & multifamily headlines — the macro context behind your numbers',
   properties:      '🏘️ Every door, every rent, every variance — in one place',
   performance:     '📊 Cap rate, DSCR, equity curve — how the portfolio is actually doing',
-  planning:        '🧭 Scenarios: BRRR refi, next-door simulator — what-ifs before you sign',
   safety:          '🛡️ Reserves, stress tests, payoff — what happens when things break',
-  math:            '🔬 The formulas, the inputs, the audit trail — how you know it\'s right',
-  'how-it-works':  'ℹ️ The product story, the tab guide, and the credibility section'
+  'how-it-works':  'ℹ️ The product story, the formulas, and the audit trail — how you know it\'s right'
 };
 
 function switchTab(tabId) {
@@ -3304,7 +3450,7 @@ function updateSectionSummaries() {
     const totalEq = totalVal - totalBal;
     const totalNetCF = props.reduce((a,p)=>{
       const ve = p.rent*(s.vac+s.mnt+s.cpx+s.res);
-      return a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - ve);
+      return a + (p.rent - p.piti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - ve);
     }, 0);
     const fK = v => v >= 1000000 ? '$'+(v/1000000).toFixed(1)+'M' : '$'+Math.round(v/1000)+'K';
     const sign = totalNetCF >= 0 ? '+' : '';
@@ -3313,7 +3459,7 @@ function updateSectionSummaries() {
     const proEl = document.getElementById('proSummary');
     if (proEl) {
       const totalNOI = props.reduce((a,p)=>{
-        const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.rent*(s.mnt+s.cpx+s.res));
+        const noi = p.rent - (p.rent*s.vac) - p.ti - p.utilities - p.water - p.lawn - p.taxprep - (p.other || 0) - (p.rent*(s.mnt+s.cpx+s.res));
         return a + noi*12;
       }, 0);
       const capRate = totalVal > 0 ? (totalNOI/totalVal*100).toFixed(1) : '0.0';
@@ -3421,7 +3567,7 @@ function generateLiveBriefing() {
     totalBal  += bal;
     const ve = rent * (s.vac + s.mnt + s.cpx + s.res);
     const piti = (+p.pi || 0) + (+p.pmi || 0) + (+p.ti || 0);
-    const opEx = (+p.utilities || 0) + (+p.water || 0) + (+p.lawn || 0) + (+p.taxprep || 0);
+    const opEx = (+p.utilities || 0) + (+p.water || 0) + (+p.lawn || 0) + (+p.taxprep || 0) + (+p.other || 0);
     const pNetCF = rent - piti - opEx - ve;
     const pNOI   = rent - rent * s.vac - (+p.ti || 0) - opEx - rent * (s.mnt + s.cpx + s.res);
     const pPaydown = Math.max(0, (+p.pi || 0) - bal * ((+p.rate || 0) / 12));
@@ -3880,7 +4026,7 @@ function dashboardHealthCheck() {
     }
   });
   // v4.3 — verify each tab has at least one section assigned
-  ['overview','news','properties','performance','planning','safety','math','how-it-works'].forEach(function(t) {
+  ['overview','properties','performance','safety','how-it-works'].forEach(function(t) {
     var n = document.querySelectorAll('[data-tab="' + t + '"]').length;
     if (n === 0) issues.push('Tab "' + t + '": no sections assigned');
   });
